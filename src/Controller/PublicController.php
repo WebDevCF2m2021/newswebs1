@@ -70,7 +70,7 @@ class PublicController extends AbstractController
 
         //var_dump($section->getIdthesection());
 
-
+        // on va chercher les articles et tous les champs nécessaires dans le repository
         $articles = $entityManager->getRepository(Thesection::class)->SelectAllArticlesBySectionId($section->getIdthesection());
 
         //var_dump($articles);

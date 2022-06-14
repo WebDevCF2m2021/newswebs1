@@ -6,11 +6,17 @@
 
 
     <div class="container">
-        <h1 class="mx-auto p-4">Tous nos articles<br> <small class="text-muted">nous avons {{ section.thearticleIdthearticle|length }} articles</small></h1>
+        {% set nbArticle = 0 %}
+        {% for articleCount in section.thearticleIdthearticle %}
+            {% if articleCount.thearticleactivate == 1 %}
+                {% set nbArticle = nbArticle + 1 %}
+            {% endif %}
+        {% endfor %}
+        <h1 class="mx-auto p-4">Tous nos articles<br> <small class="text-muted">nous avons  {{ nbArticle }} articles</small></h1>
         <h2>Facile, en partant de la section, mais génère de multiples requêtes (à décommenter)</h2><hr>
         <div class="row">
-
-                {% for item in section.thearticleIdthearticle %}
+                {% for item in section.thearticleIdthearticle|sort|reverse %}
+            {% if item.thearticleactivate == 1 %}
             <div class="col-sm-4">
                     <h3>{{ item.thearticletitle }}</h3>
                     <p>Nombre de commentaire : {{ item.thecommentIdthecomment.count }}   </p>
@@ -20,6 +26,7 @@
                     <p>Ecrit par {{ item.theuserIdtheuser.theuserlogin }} le {{ item.thearticledate|date("d/m/Y à H:i") }}</p>
                     <p>{{ item.thearticleresume }} ... <a href="{{ path('app_public_detail_article',{'slug':item.thearticleslug})  }}">Lire la suite</a></p>
             </div>
+            {% endif %}
                 {% else %}
                     <h3 class="alert alert-danger">Pas encore d'article</h3></div>
                 {% endfor %}

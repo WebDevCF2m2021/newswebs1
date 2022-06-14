@@ -171,6 +171,7 @@ class Thearticle
 
     public function getThearticledate(): ?\DateTimeInterface
     {
+        if(is_string($this->thearticledate)) return null;
         return $this->thearticledate;
     }
 
@@ -181,12 +182,12 @@ class Thearticle
         return $this;
     }
 
-    public function isThearticleactivate(): ?bool
+    public function isThearticleactivate(): ?int
     {
         return $this->thearticleactivate;
     }
 
-    public function setThearticleactivate(?bool $thearticleactivate): self
+    public function setThearticleactivate(?int $thearticleactivate): self
     {
         $this->thearticleactivate = $thearticleactivate;
 
